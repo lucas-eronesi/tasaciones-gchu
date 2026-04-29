@@ -1503,7 +1503,8 @@ function TabCap({prop,result,setResult,tc}){
   const calcular=()=>{
    if(!alq)return;
     
-   const tasa=d.tasa?nv(d.tasa)/100:0.08;const bruto=alq*12,vacM=bruto*vac,neto=bruto-vacM,val=neto/tasa;
+   const tasa=d.tasa?nv(d.tasa)/100:0.08;
+const bruto=alq*12,vacM=bruto*vac,neto=bruto-vacM,val=neto/tasa;
     setResult({alqUsd:alq,tasa,vac,bruto,vacM,neto,val,arsVal:tcN>0?val*tcN:0,m2:val/(nv(prop.sc)||1)});
   };
   const r=result;
