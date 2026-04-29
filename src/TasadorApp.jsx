@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, useEffect } from "react";
+fimport { useState, useRef, useCallback, useEffect } from "react";
 
 // ═══════════════════════════════════════════════════════════════════
 //  TABLA ROSS-HEIDECKE COMPLETA
@@ -1528,11 +1528,11 @@ function TabCap({prop,result,setResult,tc}){
         <CRow label="Ingreso anual neto" value={"USD "+Math.round(r.neto)} sub/>
         <CRow label="Tasa de capitalizacion" value={(r.tasa*100).toFixed(1)+"%"}/>
         <CRow label="VALOR POR CAPITALIZACION" value={"USD "+Math.round(r.val).toLocaleString("es-AR")} usdVal={tcN>0?ars(r.arsVal):null} tot/>
-        <CRow l="Valor al 6%" value={"USD "+Math.round(r.neto/0.06).toLocaleString("es-AR")} usdVal={tcN>0?Math.round(r.neto/0.06):null} tot/>
-<CRow l="Valor al 7%" value={"USD "+Math.round(r.neto/0.07).toLocaleString("es-AR")} usdVal={tcN>0?Math.round(r.neto/0.07):null} tot/>
-<CRow l="Valor al 8%" value={"USD "+Math.round(r.neto/0.08).toLocaleString("es-AR")} usdVal={tcN>0?Math.round(r.neto/0.08):null} tot/>
-<CRow l="Valor al 9%" value={"USD "+Math.round(r.neto/0.09).toLocaleString("es-AR")} usdVal={tcN>0?Math.round(r.neto/0.09):null} tot/>
-<CRow l="PROMEDIO 6-9%" value={"USD "+Math.round((r.neto/0.06+r.neto/0.07+r.neto/0.08+r.neto/0.09)/4).toLocaleString("es-AR")} usdVal={tcN>0?Math.round((r.neto/0.06+r.neto/0.07+r.neto/0.08+r.neto/0.09)/4):null} tot/>
+       <CRow l="Tasa 6% — Premium/Centro alta demanda" value={"USD "+Math.round(r.neto/0.06).toLocaleString("es-AR")} usdVal={tcN>0?Math.round(r.neto/0.06):null} tot/>
+<CRow l="Tasa 7% — Buena zona consolidada" value={"USD "+Math.round(r.neto/0.07).toLocaleString("es-AR")} usdVal={tcN>0?Math.round(r.neto/0.07):null} tot/>
+<CRow l="Tasa 8% — Estandar zona media" value={"USD "+Math.round(r.neto/0.08).toLocaleString("es-AR")} usdVal={tcN>0?Math.round(r.neto/0.08):null} tot/>
+<CRow l="Tasa 9% — Menor demanda/Periferia" value={"USD "+Math.round(r.neto/0.09).toLocaleString("es-AR")} usdVal={tcN>0?Math.round(r.neto/0.09):null} tot/>
+<CRow l="PROMEDIO SUGERIDO (6 a 9%)" value={"USD "+Math.round((r.neto/0.06+r.neto/0.07+r.neto/0.08+r.neto/0.09)/4).toLocaleString("es-AR")} usdVal={tcN>0?Math.round((r.neto/0.06+r.neto/0.07+r.neto/0.08+r.neto/0.09)/4):null} tot/>
         <div className="rb" style={{marginTop:11}}>
           <div className="rb-in">
             <div className="rl">Capitalizacion — tasa {(r.tasa*100).toFixed(1)}%</div>
