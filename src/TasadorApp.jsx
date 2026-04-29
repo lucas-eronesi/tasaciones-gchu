@@ -1513,9 +1513,17 @@ function TabCap({prop,result,setResult,tc}){
         <div className="ct">Capitalizacion de Rentas</div>
         <Guia tipo="capitalizacion"/>
         <div className="inf"><strong>Tasa tipica GCU:</strong> 6% a 10% anual. Consulta alquileres en USD en Fleitas, Neuwirt y Angelini.</div>
-        <div className="g3" style={{marginBottom:12}}>
-          <Fld label="Alquiler mensual (USD)" hint="Fuente: inmobiliarias locales"><input type="number" value={d.alqUsd} onChange={e=>s("alqUsd",e.target.value)} placeholder="250"/></Fld>
-          <Fld label="Tasa capitalizacion (%)" hint="GCU: 6%-10%"><input type="number" value={d.tasa} onChange={e=>s("tasa",e.target.value)} placeholder="8" step="0.5"/></Fld>
+      <div className="g3" style={{marginBottom:12}}>
+<Fld label="Tipo de propiedad" hint="Selecciona para ajustar tasas automaticamente">
+<select value={d.tipoCap||"vivienda_estandar"} onChange={e=>s("tipoCap",e.target.value)} style={{width:"100%",padding:"8px",borderRadius:"6px",border:"1px solid #ccc",fontSize:"14px"}}>
+<option value="vivienda_estandar">Vivienda estandar</option>
+<option value="vivienda_premium">Vivienda premium / Centro</option>
+<option value="local_comercial">Local comercial</option>
+<option value="galpon_industrial">Galpon zona industrial</option>
+<option value="galpon_periferia">Galpon zona periferica</option>
+</select></Fld>
+<Fld label="Alquiler mensual (USD)" hint="Fuente: inmobiliarias locales"><input type="number" value={d.alqUsd} onChange={e=>s("alqUsd",e.target.value)} placeholder="500"/></Fld>
+<Fld label="Vacancia (%)" hint="Tiempo sin inquilino. GCU: 5-10%"><input type="number" value={d.vac} onChange={e=>s("vac",e.target.value)} placeholder="5"/></Fld>
           <Fld label="Vacancia (%)"><input type="number" value={d.vac} onChange={e=>s("vac",e.target.value)} placeholder="5"/></Fld>
         </div>
         <button className="btn bp" onClick={calcular}>Calcular por capitalizacion</button>
