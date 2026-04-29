@@ -1501,9 +1501,9 @@ function TabCap({prop,result,setResult,tc}){
   const s=(k,v)=>setD(x=>({...x,[k]:v}));
   const tcN=nv(tc);
   const calcular=()=>{
-    const alq=nv(d.alqUsd),tasa=nv(d.tasa)/100,vac=nv(d.vac)/100;
-    if(!alq||!tasa)return;
-    const bruto=alq*12,vacM=bruto*vac,neto=bruto-vacM,val=neto/tasa;
+   if(!alq)return;
+    
+   const tasa=d.tasa?nv(d.tasa)/100:0.08;const bruto=alq*12,vacM=bruto*vac,neto=bruto-vacM,val=neto/tasa;
     setResult({alqUsd:alq,tasa,vac,bruto,vacM,neto,val,arsVal:tcN>0?val*tcN:0,m2:val/(nv(prop.sc)||1)});
   };
   const r=result;
