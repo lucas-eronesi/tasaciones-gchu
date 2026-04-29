@@ -1,4 +1,5 @@
 fimport { useState, useRef, useCallback, useEffect } from "react";
+const SHEETS_URL="https://script.google.com/macros/s/AKfycbzhMTOSJs1NUuqK6aKuxFkoJcMy4Xnq3F6Ys_N6TC1xuuoLyY0arnkmm6qOyiLhRek/exec";
 
 // ═══════════════════════════════════════════════════════════════════
 //  TABLA ROSS-HEIDECKE COMPLETA
