@@ -820,7 +820,7 @@ function TabFotos({fotos,setFotos,checklist,setChecklist,estadoRoss,setEstadoRos
         method:"POST",
         headers:{"Content-Type":"application/json"},
         body:JSON.stringify({
-          model:"claude-sonnet-4-20250514",
+          model:"claude-haiku-4-5-4-20250514",
           max_tokens:800,
           messages:[{role:"user",content:[...imgs,{type:"text",text:instruccion}]}]
         })
