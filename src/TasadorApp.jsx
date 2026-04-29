@@ -2098,6 +2098,56 @@ function TabTips(){
     </div>
   );
 }
+const BancoTab=()=>{
+const [form,setForm]=useState({fecha:new Date().toISOString().split("T")[0],direccion:"",zona:"",tipo:"Casa",operacion:"Venta",m2_cubiertos:"",m2_terreno:"",ambientes:"",dormitorios:"",banos:"",estado:"Bueno",estructura:"Mamposteria",antiguedad:"",cochera:"No",piscina:"No",jardin:"No",quincho:"No",luz:"Si",agua:"Si",cloaca:"Si",gas:"Si",pavimento:"Si",precio_usd:"",precio_ars:"",usd_m2:"",fuente:"",observaciones:""});
+const [filas,setFilas]=useState([]);
+const [msg,setMsg]=useState("");
+const [cargando,setCargando]=useState(false);
+const guardar=async()=>{
+if(!form.direccion||!form.precio_usd){setMsg("⚠️ Completá al menos dirección y precio USD");return;}
+setCargando(true);setMsg("");
+try{
+const r=await fetch(SHEETS_URL,{method:"POST",body:JSON.stringify(form)});
+const d=await r.json();
+if(d.ok){setMsg("✅ Comparable guardado correctamente");setForm(f=>({...f,direccion:"",precio_usd:"",precio_ars:"",usd_m2:"",observaciones:""}))}
+else setMsg("❌ Error: "+d.error);
+}catch(e){setMsg("❌ Error de conexión");}
+setCargando(false);
+};
+const cargar=async()=>{
+setCargando(true);
+try{
+const r=await fetch(SHEETS_URL);
+const d=await r.json();
+setFilas(d.slice(1));
+}catch(e){setMsg("❌ Error al cargar datos");}
+setCargando(false);
+};
+return(
+<div className="card">
+<div className="ct">Banco de Comparables <span className="pill pt">Google Sheets</span></div>
+<div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"8px",marginBottom:"12px"}}>
+<div><label className="lb">Fecha</label><input className="inp" type="date" value={form.fecha} onChange={e=>setForm(f=>({...f,fecha:e.target.value}))}/></div>
+<div><label className="lb">Dirección *</label><input className="inp" placeholder="Ej: San Martin 450" value={form.direccion} onChange={e=>setForm(f=>({...f,direccion:e.target.value}))}/></div>
+<div><label className="lb">Zona POT</label><select className="inp" value={form.zona} onChange={e=>setForm(f=>({...f,zona:e.target.value}))}><option value="">--</option>{["C","R1","R2","R3","AP1","AP2","AP3","AP4","Co1","Co2","Co3a","Co3b","Co3c","Co4","Q","CH","R","PB_C","PB_E"].map(z=><option key={z}>{z}</option>)}</select></div>
+<div><label className="lb">Tipo</label><select className="inp" value={form.tipo} onChange={e=>setForm(f=>({...f,tipo:e.target.value}))}>{["Casa","Departamento","Terreno","Local","Galpon","Campo","PH","Duplex"].map(t=><option key={t}>{t}</option>)}</select></div>
+<div><label className="lb">m² Cubiertos</label><input className="inp" type="number" value={form.m2_cubiertos} onChange={e=>setForm(f=>({...f,m2_cubiertos:e.target.value}))}/></div>
+<div><label className="lb">m² Terreno</label><input className="inp" type="number" value={form.m2_terreno} onChange={e=>setForm(f=>({...f,m2_terreno:e.target.value}))}/></div>
+<div><label className="lb">Precio USD *</label><input className="inp" type="number" value={form.precio_usd} onChange={e=>setForm(f=>({...f,precio_usd:e.target.value}))}/></div>
+<div><label className="lb">USD/m²</label><input className="inp" type="number" value={form.usd_m2} onChange={e=>setForm(f=>({...f,usd_m2:e.target.value}))}/></div>
+<div><label className="lb">Fuente</label><input className="inp" placeholder="Ej: ZonaProp" value={form.fuente} onChange={e=>setForm(f=>({...f,fuente:e.target.value}))}/></div>
+<div><label className="lb">Estado</label><select className="inp" value={form.estado} onChange={e=>setForm(f=>({...f,estado:e.target.value}))}>{["Excelente","Muy bueno","Bueno","Regular","A reciclar"].map(t=><option key={t}>{t}</option>)}</select></div>
+</div>
+<div style={{marginBottom:"8px"}}><label className="lb">Observaciones</label><input className="inp" value={form.observaciones} onChange={e=>setForm(f=>({...f,observaciones:e.target.value}))}/></div>
+{msg&&<div style={{padding:"8px",marginBottom:"8px",background:msg.startsWith("✅")?"#1a3a1a":"#3a1a1a",borderRadius:"6px",fontSize:"13px"}}>{msg}</div>}
+<div style={{display:"flex",gap:"8px",marginBottom:"16px"}}>
+<button className="btn" onClick={guardar} disabled={cargando}>{cargando?"Guardando...":"💾 Guardar Comparable"}</button>
+<button className="btn" style={{background:"#2a4a6a"}} onClick={cargar} disabled={cargando}>{cargando?"Cargando...":"📋 Ver Guardados"}</button>
+</div>
+{filas.length>0&&<div style={{overflowX:"auto"}}><table style={{width:"100%",fontSize:"11px",borderCollapse:"collapse"}}><thead><tr>{["Fecha","Dirección","Zona","Tipo","m²","USD","USD/m²","Fuente"].map(h=><th key={h} style={{padding:"4px",background:"#2a2a2a",textAlign:"left"}}>{h}</th>)}</tr></thead><tbody>{filas.map((f,i)=><tr key={i} style={{borderBottom:"1px solid #333"}}><td style={{padding:"4px"}}>{f[0]}</td><td style={{padding:"4px"}}>{f[1]}</td><td style={{padding:"4px"}}>{f[2]}</td><td style={{padding:"4px"}}>{f[3]}</td><td style={{padding:"4px"}}>{f[5]}</td><td style={{padding:"4px"}}>{f[22]}</td><td style={{padding:"4px"}}>{f[24]}</td><td style={{padding:"4px"}}>{f[25]}</td></tr>)}</tbody></table></div>}
+</div>
+);
+};
 
 // ═══════════════════════════════════════════════════════════════════
 //  APP PRINCIPAL
@@ -2105,7 +2155,7 @@ function TabTips(){
 const TABS=[
   {l:"Tasador"},{l:"Inmueble"},{l:"Fotos + Estado"},
   {l:"Terreno"},{l:"Comparables"},{l:"Capitalizacion"},
-  {l:"Reposicion"},{l:"Resumen"},{l:"Historial"},{l:"Tips"},
+  {l:"Reposicion"},{l:"Resumen"},{l:"Historial"},{l:"Tips"},{l:"Banco"}
 ];
 
 export default function App(){
@@ -2164,6 +2214,7 @@ export default function App(){
           {tab===7&&<TabResumen tasador={tasador} prop={prop} rComp={rComp} rCap={rCap} rRep={rRep} rTerreno={rTerreno} tc={tcN} estadoRoss={estadoRoss} fotos={fotos} checklist={checklist}/>}
           {tab===8&&<TabHistorial historial={historial} setHistorial={setHistorial} rComp={rComp} rCap={rCap} rRep={rRep} prop={prop} promUsd={promUsd} tc={tcN}/>}
           {tab===9&&<TabTips/>}
+          {tab===10&&<BancoTab/>}
         </div>
       </div>
     </>
