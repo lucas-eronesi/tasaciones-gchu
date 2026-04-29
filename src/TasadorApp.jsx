@@ -2104,14 +2104,14 @@ const [filas,setFilas]=useState([]);
 const [msg,setMsg]=useState("");
 const [cargando,setCargando]=useState(false);
 const guardar=async()=>{
-if(!form.direccion||!form.precio_usd){setMsg("⚠️ Completá al menos dirección y precio USD");return;}
+if(!form.direccion||!form.precio_usd){setMsg("AVISO: Completá al menos dirección y precio USD");return;}
 setCargando(true);setMsg("");
 try{
 const r=await fetch(SHEETS_URL,{method:"POST",body:JSON.stringify(form)});
 const d=await r.json();
-if(d.ok){setMsg("✅ Comparable guardado correctamente");setForm(f=>({...f,direccion:"",precio_usd:"",precio_ars:"",usd_m2:"",observaciones:""}))}
-else setMsg("❌ Error: "+d.error);
-}catch(e){setMsg("❌ Error de conexión");}
+if(d.ok){setMsg("OK Comparable guardado correctamente");setForm(f=>({...f,direccion:"",precio_usd:"",precio_ars:"",usd_m2:"",observaciones:""}))}
+else setMsg("Error: Error: "+d.error);
+}catch(e){setMsg("Error: Error de conexión");}
 setCargando(false);
 };
 const cargar=async()=>{
@@ -2120,7 +2120,7 @@ try{
 const r=await fetch(SHEETS_URL);
 const d=await r.json();
 setFilas(d.slice(1));
-}catch(e){setMsg("❌ Error al cargar datos");}
+}catch(e){setMsg("Error: Error al cargar datos");}
 setCargando(false);
 };
 return(
