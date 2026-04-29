@@ -1502,7 +1502,7 @@ function TabCap({prop,result,setResult,tc}){
   const s=(k,v)=>setD(x=>({...x,[k]:v}));
   const tcN=nv(tc);
   const calcular=()=>{
-   if(!alq)return;
+   const alq=nv(d.alqUsd);if(!alq)return;
     
    const tasa=d.tasa?nv(d.tasa)/100:0.08;
 const bruto=alq*12,vacM=bruto*vac,neto=bruto-vacM,val=neto/tasa;
