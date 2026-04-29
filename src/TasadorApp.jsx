@@ -109,6 +109,10 @@ const INMOS=[
   {n:"Fleitas",    url:"https://fleitaspropiedades.com.ar/"},
   {n:"ZonaProp",   url:"https://www.zonaprop.com.ar/inmuebles-venta-gualeguaychu.html"},
   {n:"Argenprop",  url:"https://www.argenprop.com/casas/venta/gualeguaychu"},
+{n:"Moussou", url:"https://www.moussoupropiedades.com.ar/"},
+{n:"Martinez Del Sel", url:"https://www.martinezdelselpropiedades.com.ar/"},
+{n:"Ramirez Pedro", url:"https://www.ramirezpedro.com.ar/"},
+{n:"MercadoLibre", url:"https://inmuebles.mercadolibre.com.ar/venta/gualeguaychu/"},
 ];
 const COSTOS_M2_USD={Economica:230,Media:340,Buena:500,Premium:760};
 
